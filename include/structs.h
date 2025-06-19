@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "defs.h"
 
 // -- Định nghĩa các cấu trúc dữ liệu --

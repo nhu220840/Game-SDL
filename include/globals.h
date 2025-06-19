@@ -1,7 +1,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #include "structs.h"
 
 // -- Khai báo các biến toàn cục --

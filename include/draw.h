@@ -2,7 +2,7 @@
 #define DRAW_H
 
 #include <string>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 // --- Hàm vẽ chung ---
 void prepareScene(void);

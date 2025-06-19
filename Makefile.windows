@@ -1,0 +1,41 @@
+# Makefile để biên dịch chéo cho Windows (Phiên bản Hoàn Chỉnh)
+
+# Tên tệp thực thi
+TARGET = shooter_game.exe
+
+# Trình biên dịch chéo
+CXX = x86_64-w64-mingw32-g++
+
+# Đường dẫn tới thư mục toolchain đã hợp nhất
+# THAY ĐỔI 'your_username' THÀNH TÊN NGƯỜI DÙNG CỦA BẠN
+MINGW_SYSROOT = /home/sherry/mingw_toolchain/x86_64-w64-mingw32
+
+# Cờ biên dịch
+CXXFLAGS = -std=c++11 -Wall -Iinclude -I$(MINGW_SYSROOT)/include
+
+# --- SỬA LỖI CUỐI CÙNG ---
+# Các cờ cho trình liên kết
+# Thêm các thư viện hệ thống của Windows mà SDL cần
+LDFLAGS = -L$(MINGW_SYSROOT)/lib -static \
+          -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer \
+          -lsetupapi -lgdi32 -limm32 -lole32 -loleaut32 -lversion -lwinmm -luuid -lm
+
+# Tự động tìm kiếm các tệp nguồn
+SOURCES = $(wildcard src/*.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+# --- QUY TẮC BIÊN DỊCH ---
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	@echo "Linking for Windows..."
+	$(CXX) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
+	@echo "Windows executable created: $(TARGET)"
+
+src/%.o: src/%.cpp
+	@echo "Cross-compiling $< for Windows..."
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	@echo "Cleaning up Windows build files..."
+	rm -f $(TARGET) src/*.o
